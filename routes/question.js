@@ -30,7 +30,7 @@ router.post('/:id', (req,res)=>{
 
     if(id != upbId || id != idBody){
         return res.status(400).json({
-            msg: 'las información enviada con coincide, los ids son diferentes ',
+            msg: 'las información enviada no con coincide, los ids son diferentes ',
             param:id,
             header:upbId,
             body:idBody
