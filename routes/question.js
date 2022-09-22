@@ -3,6 +3,11 @@ const { login } = require('../controllers/auth');
 
 const router = Router();
 
+router.post('/', (req,res)=>{
+    return res.status(400).json({
+        msg: 'Se debe agregar el id del estudiante al final de la ruta como parametro',
+    });
+})
 router.post('/:id', (req,res)=>{
 
     const { id } = req.params;
