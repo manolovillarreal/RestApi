@@ -16,7 +16,7 @@ router.post('/:id', (req,res)=>{
 
     if (!upbId){
         return res.status(400).json({
-            msg: 'La peticion debe contener un encabezado "ubp-id" que contenga su id upb',
+            msg: 'La peticion debe contener un encabezado "upb-id" que contenga su id upb',
             header: 'upb-id'
         });
     }
