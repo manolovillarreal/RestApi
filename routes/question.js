@@ -37,10 +37,10 @@ router.post('/:id', (req,res)=>{
         });
     }
 
-    const secret = ` ${getIdentifier()} identificado con el numero ${id}, La clave secreta es: ${generateSecretCode(id)}`;
-    res.header('secret',secret)
+    const respuesta = ` ${getIdentifier()} identificado con el numero ${id}, La clave secreta es: ${generateSecretCode(id)}`;
+    res.header('RESPUESTA',respuesta)
     res.status(202).json({
-        msg: 'El secreto esta en un encabezado...... encuentralo',
+        msg: 'La respuesta esta en un encabezado...... encuentrala',
     });
 
 })
