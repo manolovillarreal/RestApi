@@ -12,7 +12,7 @@ class Server {
 
         this.paths = {
             auth: '/api/auth',
-            users: '/api/usuarios'
+            users: '/api/usuarios',
         }
 
         //Conectarme a base de datos
@@ -44,6 +44,7 @@ class Server {
     routes() {
         this.app.use(this.paths.auth, require('../routes/auth'));
         this.app.use(this.paths.users, require('../routes/usuarios'));
+        this.app.use('/quiz/question', require('../routes/question'));
     }
     listen() {
         this.app.listen(this.port, () => {
