@@ -80,7 +80,7 @@ const usuariosPatch = async (req, res) => {
     }
   //#endregion
 
-  usuarioDB.data = {...data};
+  usuarioDB.data = { ...usuarioDB.data,...data};
 
   //Guardamos el usuario y extraemos la contraseña
   const { password: pass, ...usuario } = await Usuario.save(usuarioDB);
