@@ -4,8 +4,7 @@ const UsuarioSchema = Schema({
     id: Number,
     username: String,
     estado: Boolean,
-    score: Number,
-    achievements: Array
+    data:Object
 })
 
 

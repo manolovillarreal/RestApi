@@ -36,7 +36,7 @@ const usuariosPost = async (req, res) => {
     username,
     password: hash,
     estado: true,
-    score: 0,
+    data: {},
   };
 
   //Guardamos el usuario y extraemos la contraseña
@@ -48,7 +48,7 @@ const usuariosPost = async (req, res) => {
 };
 
 const usuariosPatch = async (req, res) => {
-  const { username, score } = req.body;
+  const { username, data } = req.body;
 
   //#region Validaciones
   //Verifica que el request contenga el usuario
@@ -59,10 +59,11 @@ const usuariosPatch = async (req, res) => {
     });
   }
   //Verifica que el request contenga la contraseña
-  if (!score) {
-    return res.status(400).json({
-      msg: "Debe enviar el score",
-      field: "score",
+
+  if (!data || typeof data != 'object') {
+      return res.status(400).json({
+      msg: "Debe enviar la data como un objeto",
+      field: "data",
     });
   }
   //Verifica si ya existe usuario con ese username
@@ -72,13 +73,14 @@ const usuariosPatch = async (req, res) => {
       msg: "No existe usuario con username " + username,
     });
   }
+    if (req.usuario._id != usuarioDB._id) {
+      return res.status(401).json({
+        msg: "No tienes permiso para realizar esta acción",
+      });
+    }
   //#endregion
-  //   if (req.usuario._id != usuarioDB._id) {
-  //     return res.status(401).json({
-  //       msg: "No tienes permiso para realizar esta acción",
-  //     });
-  //   }
-  usuarioDB.score = score;
+
+  usuarioDB.data = {...data};
 
   //Guardamos el usuario y extraemos la contraseña
   const { password: pass, ...usuario } = await Usuario.save(usuarioDB);
@@ -99,7 +101,7 @@ const usuariosGetByUsername = async (req = request, res) => {
   const { username } = req.params;
   //preparo la data para guardar
   //Guardamos el usuario y extraemos la contraseña
-  let usuario = await Usuario.findOne({ username });
+  let {password,...usuario} = await Usuario.findOne({ username });
 
   res.json({
     usuario,
