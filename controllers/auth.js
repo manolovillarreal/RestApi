@@ -7,6 +7,18 @@ const login = async(req, res = response) => {
 
     const { username, password } = req.body;
 
+    if(!username){
+        return res.status(400).json({
+            msg: 'debe enviar el campo username en la petición',
+            field:'username'
+        })
+    }
+    if(!password){
+        return res.status(400).json({
+            msg: 'debe enviar el campo password en la petición',
+            field:'password'
+        })
+    }
 
     //Verificar si el email existe
     const usuarioDB = await Usuario.findOne({ username });
